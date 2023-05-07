@@ -5,20 +5,29 @@
 # - API call to backup server before installing new client
 # - Skip installing new server is version is the same
 #############################################################################################
+############################################
+## Exit script if not root
+if [[ `id -u` != 0 ]]; then
+    echo "Must be root to run script"
+    exit
+fi
+############################################
+# INSTALL DIRS
 HANWHADIR="/opt/hanwha/mediaserver"
 DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
+############################################
+
 if [ -d "$HANWHADIR" ];
 then
-#https://updates.vmsproxy.com/hanwha/releases.json
     NXSW="HANWHA"
     NXDIR=$WAVEDIR
-    NXURL="https://wavevms.com/hanwha/wave-ubuntu-x64-server/"
+    NXURL="https://updates.vmsproxy.com/hanwha/releases.json"
 elif [ -d "$DWSPECTRUMDIR" ];
 then
 #https://updates.vmsproxy.com/digitalwatchdog/releases.json
     NXSW="DWSPECTRUM"
     NXDIR=$DWSPECTRUMDIR
-    NXURL="https://updates.networkoptix.com/digitalwatchdog/5.0.0.36634/linux/dwspectrum-server-5.0.0.36634-linux_x64.deb"
+    NXURL="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
 else
 	echo "No NXVMS software detected... Exiting..."
   exit;
