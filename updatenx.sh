@@ -19,7 +19,7 @@ fi
 
 
 echo "Updating system using apt-get....."
-apt autoremove
+apt autoremove -y
 apt-get update -y
 apt-get upgrade -y
 
