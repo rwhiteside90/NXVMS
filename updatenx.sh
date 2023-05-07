@@ -15,6 +15,15 @@ if [[ `id -u` != 0 ]]; then
     echo "Must be root to run script"
     exit
 fi
+## Exit if not running in bash
+BASHCHECK="false"
+if [[ "${BASH_VERSINFO:-0}" -ge 4 ]]; then
+        BASHCHECK="true"
+fi
+if [ $BASHCHECK = "false" ]; then
+        echo "Script must be ran in BASH... Exiting..."
+        exit
+fi
 ############################################
 
 FindLatestVersion () {
