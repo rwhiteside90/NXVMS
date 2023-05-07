@@ -1,4 +1,6 @@
 #!/bin/sh
+#Script to update system using apt-get and update NX Witness Server
+#############################################################################################
 HANWHADIR="/opt/hanwha/mediaserver"
 DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
 if [ -d "$HANWHADIR" ];
