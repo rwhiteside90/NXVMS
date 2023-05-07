@@ -21,6 +21,7 @@ fi
 FindLatestVersion () {
 local $NXBASEURL
 local $NXVERSION
+local $NXDIR
 
 JSON=$1
 NXBASEURL=`curl -s $JSON | jq '.packages_urls[]|select(. | contains("beta") | not)' | sed 's/"//g'`
