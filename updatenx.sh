@@ -1,5 +1,6 @@
 #!/bin/bash
 #Script to update system using apt-get and update NX Witness Server
+#JQ is required to parse JSON FILES FROM NX WITNESS AND WILL BE INSTALLED USING APT-GET
 # Todo:
 # - API call to backup server before installing new client
 # - Skip installing new server is version is the same
@@ -32,6 +33,12 @@ echo "NX Version: $NXVERSION"
 
 }
 
+echo "Updating system using apt-get....."
+apt autoremove -y
+apt-get update -y
+apt-get install jq -y
+apt-get upgrade -y
+
 if [ -d "$HANWHADIR" ];
 then
     NXSW="HANWHA"
@@ -53,11 +60,6 @@ else
     exit;
 fi
 
-
-echo "Updating system using apt-get....."
-apt autoremove -y
-apt-get update -y
-apt-get upgrade -y
 
 echo "-------------------"
 echo "Downloading latest version of NX from URL: $NXDEBURL......"
