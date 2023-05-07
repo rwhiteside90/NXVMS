@@ -1,6 +1,7 @@
 #!/bin/bash
-#Script to update system using apt-get and update NX Witness Server
-#JQ is required to parse JSON FILES FROM NX WITNESS AND WILL BE INSTALLED USING APT-GET
+# Script to update system using apt-get and update NX Witness Server
+# Can be run directly from internet using: curl -s https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/updatenx.sh | sudo bash
+# JQ is required to parse JSON FILES FROM NX WITNESS AND WILL BE INSTALLED USING APT-GET
 # Todo:
 # - API call to backup server before installing new client
 # - Skip installing new server is version is the same
