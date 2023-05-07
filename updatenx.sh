@@ -4,7 +4,6 @@
 # JQ is required to parse JSON FILES FROM NX WITNESS AND WILL BE INSTALLED USING APT-GET
 # Todo:
 # - API call to backup server before installing new client
-# - Skip installing new server is version is the same
 #############################################################################################
 ############################################
 # INSTALL DIRS
@@ -21,19 +20,26 @@ fi
 FindLatestVersion () {
 local $NXBASEURL
 local $NXVERSION
-local $NXDIR
+local $NXCURRENTVERSION
 
-JSON=$1
 NXBASEURL=`curl -s $JSON | jq '.packages_urls[]|select(. | contains("beta") | not)' | sed 's/"//g'`
 NXVERSION=`curl -s $JSON | jq '.releases[1]|select(.publication_type | startswith("release"))' | jq '.version' | sed 's/"//g'`
 if [[ "$NXVERSION" == *"4."* ]]; then
 echo "Detected legacy version 4.x... Exiting..."
 exit;
 fi
+NXCURRENTVERSION=`cat ${NXDIR}/build_info.json | jq .vmsVersion | sed 's/"//g'`
+echo "NX Current Version: $NXCURRENTVERSION"
+echo "-------------------------------"
 echo "NX Base URL: $NXBASEURL"
-echo "NX Version: $NXVERSION"
+echo "NX Latest Version: $NXVERSION"
 
+if [[ "$NXVERSION" == "$NXCURRENTVERSION" ]]; then
+echo "Latest version already installed... Exiting..."
+exit;
+fi
 }
+
 
 echo "Updating system using apt-get....."
 apt autoremove -y
@@ -44,9 +50,9 @@ apt-get upgrade -y
 if [ -d "$HANWHADIR" ];
 then
     NXSW="HANWHA"
-    NXDIR=$WAVEDIR
+    NXDIR=$HANWHADIR
     JSON="https://updates.vmsproxy.com/hanwha/releases.json"
-    FindLatestVersion $JSON
+    FindLatestVersion
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-server-$NXVERSION-linux_x64.deb"
     echo "NX DEB URL: $NXDEBURL"
 elif [ -d "$DWSPECTRUMDIR" ];
@@ -54,7 +60,7 @@ then
     NXSW="DWSPECTRUM"
     NXDIR=$DWSPECTRUMDIR
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
-    FindLatestVersion $JSON
+    FindLatestVersion
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-server-$NXVERSION-linux_x64.deb"
     echo "NX DEB URL: $NXDEBURL"
 else
