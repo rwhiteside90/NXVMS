@@ -3,6 +3,7 @@ HANWHADIR="/opt/hanwha/mediaserver"
 DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
 if [ -d "$HANWHADIR" ];
 then
+#https://updates.vmsproxy.com/hanwha/releases.json
     NXSW="HANWHA"
     NXDIR=$WAVEDIR
     NXURL="https://wavevms.com/hanwha/wave-ubuntu-x64-server/"
