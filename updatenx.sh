@@ -1,10 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 #Script to update system using apt-get and update NX Witness Server
 # Todo:
-# - Add in detecting latest server for all builds from JSON file
 # - API call to backup server before installing new client
 # - Skip installing new server is version is the same
 #############################################################################################
+############################################
+# INSTALL DIRS
+HANWHADIR="/opt/hanwha/mediaserver"
+DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
 ############################################
 ## Exit script if not root
 if [[ `id -u` != 0 ]]; then
@@ -12,25 +15,42 @@ if [[ `id -u` != 0 ]]; then
     exit
 fi
 ############################################
-# INSTALL DIRS
-HANWHADIR="/opt/hanwha/mediaserver"
-DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
-############################################
+
+FindLatestVersion () {
+local $NXBASEURL
+local $NXVERSION
+
+JSON=$1
+NXBASEURL=`curl -s $JSON | jq '.packages_urls[]|select(. | contains("beta") | not)' | sed 's/"//g'`
+NXVERSION=`curl -s $JSON | jq '.releases[1]|select(.publication_type | startswith("release"))' | jq '.version' | sed 's/"//g'`
+if [[ "$NXVERSION" == *"4."* ]]; then
+echo "Detected legacy version 4.x... Exiting..."
+exit;
+fi
+echo "NX Base URL: $NXBASEURL"
+echo "NX Version: $NXVERSION"
+
+}
 
 if [ -d "$HANWHADIR" ];
 then
     NXSW="HANWHA"
     NXDIR=$WAVEDIR
-    NXURL="https://updates.vmsproxy.com/hanwha/releases.json"
+    JSON="https://updates.vmsproxy.com/hanwha/releases.json"
+    FindLatestVersion $JSON
+    NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-server-$NXVERSION-linux_x64.deb"
+    echo "NX DEB URL: $NXDEBURL"
 elif [ -d "$DWSPECTRUMDIR" ];
 then
-#https://updates.vmsproxy.com/digitalwatchdog/releases.json
     NXSW="DWSPECTRUM"
     NXDIR=$DWSPECTRUMDIR
-    NXURL="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
+    JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
+    FindLatestVersion $JSON
+    NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-server-$NXVERSION-linux_x64.deb"
+    echo "NX DEB URL: $NXDEBURL"
 else
-	echo "No NXVMS software detected... Exiting..."
-  exit;
+    echo "No NXVMS software detected... Exiting..."
+    exit;
 fi
 
 
@@ -40,9 +60,9 @@ apt-get update -y
 apt-get upgrade -y
 
 echo "-------------------"
-echo "Downloading latest version of NX from URL: $NXURL......"
+echo "Downloading latest version of NX from URL: $NXDEBURL......"
 cd /tmp
-F=$(wget --content-disposition $NXURL 2>&1 | grep "Saving to:")
+F=$(wget --content-disposition $NXDEBURL 2>&1 | grep "Saving to:")
 F2=`echo "$F" | sed 's/Saving to: ‘//g'`
 F2=`echo "$F2" | sed 's/’//g'`
 F2=`echo "$F2" | sed 's/ //g'`
