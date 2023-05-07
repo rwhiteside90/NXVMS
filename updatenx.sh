@@ -1,5 +1,9 @@
 #!/bin/sh
 #Script to update system using apt-get and update NX Witness Server
+# Todo:
+# - Add in detecting latest server for all builds from JSON file
+# - API call to backup server before installing new client
+# - Skip installing new server is version is the same
 #############################################################################################
 HANWHADIR="/opt/hanwha/mediaserver"
 DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
