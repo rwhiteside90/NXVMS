@@ -1,6 +1,6 @@
 #!/bin/sh
-HANWHADIR="/opt/hanwha/mediaserver"
-DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
+HANWHADIR="/opt/hanwha/mediaserver-"
+DWSPECTRUMDIR="/opt/dwspectrum/mediaserver-"
 if [ -d "$HANWHADIR" ];
 then
     NXSW="HANWHA"
