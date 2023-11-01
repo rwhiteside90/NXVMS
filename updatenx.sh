@@ -97,4 +97,4 @@ echo "Removing installer files...."
 rm -fr $F2
 echo "-------------------"
 echo "Rebooting server in 60 seconds...."
-shutdown -r 1
+shutdown -r 60
