@@ -37,8 +37,8 @@ if [[ "$NXVERSION" == *"4."* ]]; then
 echo "Detected legacy version 4.x... Exiting..."
 exit;
 fi
-NXCURRENTVERSION=`cat ${NXDIR}/build_info.json | jq .vmsVersion | sed 's/"//g'`
-echo "NX Current Version: $NXCURRENTVERSION"
+NXCURRENTVERSION=`cat ${NXDIR}/*.*/build_info.json | jq .vmsVersion | sed 's/"//g'`
+echo "NX Client Current Version: $NXCURRENTVERSION"
 echo "-------------------------------"
 echo "NX Base URL: $NXBASEURL"
 echo "NX Latest Version: $NXVERSION"
