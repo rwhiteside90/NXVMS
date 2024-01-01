@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to install Hanwha Wave
+# Script to install Hanwha Wave VMS Client
 #############################################################################################
 ############################################
 # INSTALL DIRS
