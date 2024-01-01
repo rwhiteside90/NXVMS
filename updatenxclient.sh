@@ -27,9 +27,10 @@ fi
 ############################################
 
 FindLatestVersion () {
-local $NXBASEURL
 local $NXVERSION
+local $NXVERSION2
 local $NXCURRENTVERSION
+local $NXCURRENTVERSION2
 
 NXBASEURL=`curl -s $JSON | jq '.packages_urls[]|select(. | contains("beta") | not)' | sed 's/"//g'`
 NXVERSION=`curl -s $JSON | jq '.releases[1]|select(.publication_type | startswith("release"))' | jq '.version' | sed 's/"//g'`
@@ -45,6 +46,14 @@ echo "NX Latest Version: $NXVERSION"
 
 if [[ "$NXVERSION" == "$NXCURRENTVERSION" ]]; then
 echo "Latest version already installed... Exiting..."
+exit;
+fi
+
+NXVERSION2=`echo $NXVERSION | sed -r 's/[.]//g'`
+NXCURRENTVERSION2=`echo $NXCURRENTVERSION | sed -r 's/[.]//g'`
+
+if [[ $(($NXVERSION2)) -lt $(($NXCURRENTVERSION2)) ]]; then
+echo "Newer version already installed... Exiting..."
 exit;
 fi
 }
