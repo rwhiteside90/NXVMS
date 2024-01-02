@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to install Hanwha Wave
 #############################################################################################
+export DEBIAN_FRONTEND=noninteractive
 ############################################
 # INSTALL DIRS
 
