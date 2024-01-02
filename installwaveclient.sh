@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to install Hanwha Wave VMS Client
 #############################################################################################
+export DEBIAN_FRONTEND=noninteractive
 ############################################
 # INSTALL DIRS
 
