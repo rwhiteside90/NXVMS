@@ -15,7 +15,7 @@ export DEBIAN_FRONTEND=noninteractive
 # INSTALL DIRS
 HANWHADIR="/opt/hanwha/mediaserver"
 DWSPECTRUMDIR="/opt/dwspectrum/mediaserver"
-DWSPECTRUMDIR2="/opt/digitalwatchdog/client"
+DWSPECTRUMDIR2="/opt/digitalwatchdog/mediaserver"
 ############################################
 ## Exit script if not root
 if [[ `id -u` != 0 ]]; then
