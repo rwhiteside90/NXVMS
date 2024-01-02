@@ -5,6 +5,7 @@
 # Todo:
 # - API call to backup server before installing new client
 #############################################################################################
+export DEBIAN_FRONTEND=noninteractive
 ############################################
 # INSTALL DIRS
 HANWHADIR="/opt/hanwha/mediaserver"
