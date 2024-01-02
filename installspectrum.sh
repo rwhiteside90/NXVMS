@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to install DW Spectrum
 #############################################################################################
+export DEBIAN_FRONTEND=noninteractive
 ############################################
 # INSTALL DIRS
 
