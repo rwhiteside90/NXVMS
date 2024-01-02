@@ -14,6 +14,7 @@ export DEBIAN_FRONTEND=noninteractive
 # INSTALL DIRS
 HANWHADIR="/opt/hanwha/client"
 DWSPECTRUMDIR="/opt/dwspectrum/client"
+DWSPECTRUMDIR2="/opt/digitalwatchdog/client"
 ############################################
 ## Exit script if not root
 if [[ `id -u` != 0 ]]; then
@@ -79,6 +80,14 @@ then
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-client-$NXVERSION-linux_x64.deb"
     echo "NX DEB URL: $NXDEBURL"
 elif [ -d "$DWSPECTRUMDIR" ];
+then
+    NXSW="DWSPECTRUM"
+    NXDIR=$DWSPECTRUMDIR
+    JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
+    FindLatestVersion
+    NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
+    echo "NX DEB URL: $NXDEBURL"
+elif [ -d "$DWSPECTRUMDIR2" ];
 then
     NXSW="DWSPECTRUM"
     NXDIR=$DWSPECTRUMDIR
