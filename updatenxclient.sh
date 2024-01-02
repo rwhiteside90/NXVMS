@@ -4,6 +4,10 @@
 # JQ is required to parse JSON FILES FROM NX WITNESS AND WILL BE INSTALLED USING APT-GET
 # Todo:
 # - API call to backup server before installing new client
+# Changes:
+# Added DEBIAN_FRONTEND=noninteractive
+# Added logic to prevent installing older version than what's installed
+# Fixed query to select latest version from JSON
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
 ############################################
