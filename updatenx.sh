@@ -93,7 +93,7 @@ then
 elif [ -d "$DWSPECTRUMDIR2" ];
 then
     NXSW="DWSPECTRUM"
-    NXDIR=$DWSPECTRUMDIR
+    NXDIR=$DWSPECTRUMDIR2
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-server-$NXVERSION-linux_x64.deb"
