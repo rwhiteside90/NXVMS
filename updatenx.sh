@@ -8,7 +8,7 @@
 # Added DEBIAN_FRONTEND=noninteractive
 # Added logic to prevent installing older version than what's installed
 # Fixed query to select latest version from JSON
-# Added second for DW Spectrum has it's renamed in newer versions
+# Added second for DW Spectrum has it's renamed in newer versions (dwspectrum vs digitalwatchdog)
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
 ############################################
