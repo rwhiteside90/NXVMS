@@ -56,7 +56,13 @@ apt-get upgrade -y
 
 
     NXSW="DWSPECTRUM"
+    if [ -d "$DWSPECTRUMDIR" ];
+then
     NXDIR=$DWSPECTRUMDIR
+    elif [ -d "$DWSPECTRUMDIR2" ];
+then
+    NXDIR=$DWSPECTRUMDIR2
+fi
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
