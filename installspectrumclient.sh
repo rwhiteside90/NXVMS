@@ -59,7 +59,7 @@ apt-get upgrade -y
     if [ -d "$DWSPECTRUMDIR" ];
 then
     NXDIR=$DWSPECTRUMDIR
-    elif [ -d "$DWSPECTRUMDIR2" ];
+    else [ -d "$DWSPECTRUMDIR2" ];
 then
     NXDIR=$DWSPECTRUMDIR2
 fi
