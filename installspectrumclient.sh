@@ -5,7 +5,8 @@ export DEBIAN_FRONTEND=noninteractive
 ############################################
 # INSTALL DIRS
 
-HANWHADIR="/opt/dwspectrum/client"
+DWSPECTRUMDIR="/opt/dwspectrum/client"
+DWSPECTRUMDIR2="/opt/digitalwatchdog/client"
 ############################################
 ## Exit script if not root
 if [[ `id -u` != 0 ]]; then
