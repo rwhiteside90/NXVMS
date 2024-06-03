@@ -58,7 +58,7 @@ apt-get upgrade -y
     NXDIR=$DWSPECTRUMDIR
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
-    NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-client-$NXVERSION-linux_x64.deb"
+    NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
     echo "NX DEB URL: $NXDEBURL"
 
 
