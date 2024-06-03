@@ -1,5 +1,5 @@
 #!/bin/bash
-# Script to install Hanwha Wave VMS Client
+# Script to install DW Spectrum VMS Client
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
 ############################################
