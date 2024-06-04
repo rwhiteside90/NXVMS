@@ -32,7 +32,8 @@ if [ $BASHCHECK = "false" ]; then
 fi
 ############################################
 # Check for updated version
-echo "Script Path: ${BASH_SOURCE}"
+SCRIPT=$(realpath "$0")
+echo "Script Path: $SCRIPT"
 
 ############
 
