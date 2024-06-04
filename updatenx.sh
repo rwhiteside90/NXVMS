@@ -36,12 +36,14 @@ fi
 SCRIPT=$(realpath "$0")
 SCRIPTNAME=$0
 SCRIPTMD5=$(md5sum $SCRIPT | cut -d ' ' -f 1)
-### Check if MD5 Hash is blank
-if [[ "$SCRIPTMD5" != "" ]]; then
+#Comment Line out to disable auto update/don't have URL end in / 
+DOWNLOADURL="https://raw.githubusercontent.com/rwhiteside90/NXVMS/main" 
+### Check if MD5 Hash is blank & download URL set
+if [[ "$SCRIPTMD5" != "" ]] && [ -v DOWNLOADURL ]; then
     echo "Script Path: $SCRIPT"
     echo "Script Name: $SCRIPTNAME"
     echo "Script Current Version MD5 Hash: $SCRIPTMD5"
-    DOWNLOADFILE=$(wget -NS --content-on-error=off https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME --quiet > /dev/null 2>&1)
+    DOWNLOADFILE=$(wget -NS --content-on-error=off $DOWNLOADURL/$SCRIPTNAME -O /tmp/$SCRIPTNAME --quiet > /dev/null 2>&1)
     RESULT=$?
     #echo $RESULT ONLY CONTINUE IF FILE DOWNLOADED WITH HTTP 200
     if [[ $RESULT -eq 0 ]]; then
@@ -59,7 +61,7 @@ if [[ "$SCRIPTMD5" != "" ]]; then
         fi
     fi
 else
-echo "Unable to calculate script MD5 hash. Continuing...."
+echo "Unable to calculate script MD5 hash or download URL not set. Continuing...."
 fi
 ############
 
