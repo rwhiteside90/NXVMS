@@ -52,7 +52,7 @@ if [[ "$SCRIPTMD5" != "" ]] && [ -v DOWNLOADURL ]; then
         fi
     fi
 else
-echo "Unable to calculate script MD5 hash. Continuing...."
+echo "Unable to calculate script MD5 hash or download URL not set. Continuing...."
 fi
 ############
 
