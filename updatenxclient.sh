@@ -33,7 +33,11 @@ fi
 ############################################
 # Check for updated version
 SCRIPT=$(realpath "$0")
+$SCRIPTNAME=$0
+$SCRIPTMD5=$(md5sum $SCRIPT | cut -d ' ' -f 1)
 echo "Script Path: $SCRIPT"
+echo "Script Name: $SCRIPTNAME"
+echo "Script Currnet Version MD5 Hash: $SCRIPTMD5"
 
 ############
 
