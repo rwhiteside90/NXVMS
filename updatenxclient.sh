@@ -31,6 +31,10 @@ if [ $BASHCHECK = "false" ]; then
         exit
 fi
 ############################################
+# Check for updated version
+echo "Script Path: ${BASH_SOURCE}"
+
+############
 
 FindLatestVersion () {
 local $NXVERSION
