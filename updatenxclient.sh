@@ -35,28 +35,32 @@ fi
 SCRIPT=$(realpath "$0")
 SCRIPTNAME=$0
 SCRIPTMD5=$(md5sum $SCRIPT | cut -d ' ' -f 1)
+### Check if MD5 Hash is blank
 if [[ "$SCRIPTMD5" != "" ]]; then
-echo "Script Path: $SCRIPT"
-echo "Script Name: $SCRIPTNAME"
-echo "Script Current Version MD5 Hash: $SCRIPTMD5"
-wget https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME
-NEWSCRIPTMD5=$(md5sum /tmp/$SCRIPTNAME | cut -d ' ' -f 1)
-if [[ "$NEWSCRIPTMD5" == "" ]]; then
-echo "Unable to calculate updated script MD5 hash. Continuing...."
-elif [[ "$NEWSCRIPTMD5" != "" ]] &&  [[ "$NEWSCRIPTMD5" != "$SCRIPTMD5" ]]; then
-echo "Script outdated, replacing local file..."
-mv -f /tmp/$SCRIPTNAME $SCRIPT
-echo "Script needs to be relaunched... Relaunching..."
-bash $SCRIPT && exit
-exit;
-else
-echo "No need to update script... Continuing...."
-fi
+    echo "Script Path: $SCRIPT"
+    echo "Script Name: $SCRIPTNAME"
+    echo "Script Current Version MD5 Hash: $SCRIPTMD5"
+    DOWNLOADFILE=$(wget -NS --content-on-error=off https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME --quiet > /dev/null 2>&1)
+    RESULT=$?
+    #echo $RESULT ONLY CONTINUE IF FILE DOWNLOADED WITH HTTP 200
+    if [[ $RESULT -eq 0 ]]; then
+        echo "File downloaded..."
+        NEWSCRIPTMD5=$(md5sum /tmp/$SCRIPTNAME | cut -d ' ' -f 1)
+        if [[ "$NEWSCRIPTMD5" == "" ]]; then
+            echo "Unable to calculate updated script MD5 hash. Continuing...."
+        elif [[ "$NEWSCRIPTMD5" != "" ]] &&  [[ "$NEWSCRIPTMD5" != "$SCRIPTMD5" ]]; then
+            echo "Script outdated, replacing local file..."
+            mv -f /tmp/$SCRIPTNAME $SCRIPT
+            echo "Script needs to be relaunched... Relaunching..."
+            bash $SCRIPT && exit
+        else
+        echo "No need to update script... Continuing...."
+        fi
+    fi
 else
 echo "Unable to calculate script MD5 hash. Continuing...."
 fi
 ############
-
 
 FindLatestVersion () {
 local $NXVERSION
