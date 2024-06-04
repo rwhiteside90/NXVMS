@@ -22,6 +22,31 @@ if [ $BASHCHECK = "false" ]; then
         exit
 fi
 ############################################
+# Check for updated version
+SCRIPT=$(realpath "$0")
+SCRIPTNAME=$0
+SCRIPTMD5=$(md5sum $SCRIPT | cut -d ' ' -f 1)
+if [[ "$SCRIPTMD5" != "" ]]; then
+echo "Script Path: $SCRIPT"
+echo "Script Name: $SCRIPTNAME"
+echo "Script Current Version MD5 Hash: $SCRIPTMD5"
+wget https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME
+NEWSCRIPTMD5=$(md5sum /tmp/$SCRIPTNAME | cut -d ' ' -f 1)
+if [[ "$NEWSCRIPTMD5" == "" ]]; then
+echo "Unable to calculate updated script MD5 hash. Continuing...."
+elif [[ "$NEWSCRIPTMD5" != "" ]] &&  [[ "$NEWSCRIPTMD5" != "$SCRIPTMD5" ]]; then
+echo "Script outdated, replacing local file..."
+mv -f /tmp/$SCRIPTNAME $SCRIPT
+echo "Script needs to be relaunched... Relaunching..."
+bash $SCRIPT && exit
+exit;
+else
+echo "No need to update script... Continuing...."
+fi
+else
+echo "Unable to calculate script MD5 hash. Continuing...."
+fi
+############
 
 FindLatestVersion () {
 local $NXBASEURL
