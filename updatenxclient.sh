@@ -41,6 +41,7 @@ echo "Script Name: $SCRIPTNAME"
 echo "Script Currnet Version MD5 Hash: $SCRIPTMD5"
 else;
 echo "Unable to calculate script MD5 hash continuing...."
+fi
 ############
 
 FindLatestVersion () {
