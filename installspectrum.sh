@@ -31,7 +31,12 @@ if [[ "$SCRIPTMD5" != "" ]]; then
 echo "Script Path: $SCRIPT"
 echo "Script Name: $SCRIPTNAME"
 echo "Script Current Version MD5 Hash: $SCRIPTMD5"
-wget https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME
+DOWNLOADFILE=$(wget -NS --content-on-error=off https://raw.githubusercontent.com/rwhiteside90/NXVMS/main/$SCRIPTNAME -O /tmp/$SCRIPTNAME --quiet > /dev/null 2>&1)
+RESULT=$?
+echo $RESULT
+if [[ $RESULT -eq 0 ]]; then
+echo "File downloaded..."
+exit;
 NEWSCRIPTMD5=$(md5sum /tmp/$SCRIPTNAME | cut -d ' ' -f 1)
 if [[ "$NEWSCRIPTMD5" == "" ]]; then
 echo "Unable to calculate updated script MD5 hash. Continuing...."
@@ -46,6 +51,7 @@ echo "No need to update script... Continuing...."
 fi
 else
 echo "Unable to calculate script MD5 hash. Continuing...."
+fi
 fi
 ############
 
