@@ -62,7 +62,7 @@ local $NXVERSION
 local $NXCURRENTVERSION
 
 NXBASEURL=`curl -s $JSON | jq '.packages_urls[]|select(. | contains("beta") | not)' | sed 's/"//g'`
-NXVERSION=`curl -s $JSON | jq '.releases[]|select(.publication_type | contains("beta") | not)' | jq '.version' | jq --slurp '.[0]' | sed 's/"//g'`
+NXVERSION=`curl -s $JSON | jq '.releases[]|select(.publication_type | contains("release"))' | jq '.version' | jq --slurp '.[0]' | sed 's/"//g'`
 if [[ "$NXVERSION" == *"4."* ]] && [[ "$NXCURRENTVERSION" != "" ]]; then
 echo "Detected legacy version 4.x... Exiting..."
 exit;
