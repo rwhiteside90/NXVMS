@@ -145,9 +145,11 @@ echo "Saved download to /tmp/$F2....."
 echo "-------------------"
 ls -lh $F2
 echo "-------------------"
+echo "Running apt --fix-broken install -y...."
 apt --fix-broken install -y
 echo "Install updated installer for NX Client using file: $F2"
 dpkg -i $F2
+echo "Running apt --fix-broken install -y...."
 apt --fix-broken install -y
 echo "-------------------"
 echo "Removing installer files...."
