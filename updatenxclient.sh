@@ -10,6 +10,9 @@
 # Fixed query to select latest version from JSON
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
+# CPU Type
+CPU=$(uname -m) 
+echo "CPU Type: $CPU"
 ############################################
 # INSTALL DIRS
 HANWHADIR="/opt/hanwha/client"
@@ -109,7 +112,11 @@ then
     NXDIR=$HANWHADIR
     JSON="https://updates.vmsproxy.com/hanwha/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/wave-client-$NXVERSION-linux_arm64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-client-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 elif [ -d "$DWSPECTRUMDIR" ];
 then
@@ -117,7 +124,11 @@ then
     NXDIR=$DWSPECTRUMDIR
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/dwspectrum-client-$NXVERSION-arm64_x64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 elif [ -d "$DWSPECTRUMDIR2" ];
 then
@@ -125,7 +136,11 @@ then
     NXDIR=$DWSPECTRUMDIR2
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/dwspectrum-client-$NXVERSION-arm64_x64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 else
     echo "No NXVMS software detected... Exiting..."
