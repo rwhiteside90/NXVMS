@@ -2,6 +2,9 @@
 # Script to install DW Spectrum VMS Client
 ############################################################################################
 export DEBIAN_FRONTEND=noninteractive
+# CPU Type
+CPU=$(uname -m) 
+echo "CPU Type: $CPU"
 ############################################
 # INSTALL DIRS
 
@@ -95,7 +98,11 @@ apt-get upgrade -y
     fi
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/dwspectrum-client-$NXVERSION-arm64_x64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-client-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 
 
