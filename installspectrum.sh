@@ -2,6 +2,9 @@
 # Script to install DW Spectrum
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
+# CPU Type
+CPU=$(uname -m) 
+echo "CPU Type: $CPU"
 ############################################
 # INSTALL DIRS
 
@@ -96,7 +99,11 @@ apt-get install cifs-utils net-tools -y
     fi
     JSON="https://updates.vmsproxy.com/digitalwatchdog/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/dwspectrum-server-$NXVERSION-arm64_x64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/dwspectrum-server-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 
 
