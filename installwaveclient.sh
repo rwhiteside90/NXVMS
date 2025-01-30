@@ -2,6 +2,9 @@
 # Script to install Hanwha Wave VMS Client
 #############################################################################################
 export DEBIAN_FRONTEND=noninteractive
+# CPU Type
+CPU=$(uname -m) 
+echo "CPU Type: $CPU"
 ############################################
 # INSTALL DIRS
 
@@ -90,7 +93,11 @@ apt-get upgrade -y
     NXDIR=$HANWHADIR
     JSON="https://updates.vmsproxy.com/hanwha/releases.json"
     FindLatestVersion
+    if [[ "$CPU" == "aarch64" ]]; then
+    NXDEBURL="$NXBASEURL/$NXVERSION/arm/wave-client-$NXVERSION-linux_arm64.deb"
+    else
     NXDEBURL="$NXBASEURL/$NXVERSION/linux/wave-client-$NXVERSION-linux_x64.deb"
+    fi
     echo "NX DEB URL: $NXDEBURL"
 
 
